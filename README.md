@@ -39,18 +39,47 @@ Você deverá desempenhar as seguintes atividades:
 - Testes;
 - Adaptação do código ao funcionamento do AirFlow;
 
+### Variáveis que devem ser criadas no AirFlow
+| variavel | descrição |
+| -- | -- |
+| db_user | usuário de conexão no mongodb
+| db_password | senha do usuário do mongodb
+| aws_access_key_id |
+| aws_secret_access_key 
+| pg_user | usuário do banco postgres
+| pg_password | senha do usuário do banco postgres
+| pg_hostname | nome do servidor (dns ou ip) do banco postgres
+| pg_port | porta para conexao  do banco postgres
+| pg_dbname | nome do database do banco postgres
 ### Problemas enfrentados
 O código escrito no notebook jupyter contava com a reutilização dos DataFrames entre um passo e outro, sem a necessidade de criação de arquivos indermediários. Ao tentar usar este conceito no AirFlow, observei que a passagem de parâmetros entre as @Tasks do Airflow só permite dados simples. Desta forma, o código foi adaptado para o seguinte fluxo:  
 
-![fluxo](https://github.com/andersonesanto/[reponame]/blob/[branch]/image.jpg?raw=true)
+![fluxo](https://github.com/andersonesanto/igti-edd-m5-desafio/raw/main/assets/fluxo-tasks.png?raw=true)  
 
-
+- @start
+    - marca de início, sem atividade
+- @mongodb_to_local_json 
+    - conecta com mongodb, 
+    - cria o filtro conforme o critério "Mulheres entre 20 e 40 anos"
+    - cria um dataframe contendo os dados retornados pelo cursor do mongodb;
+    - cria o arquivo json local;
+- @upload_json_s3
+    - envia o arquivo json criado para o bucket do S3
+- @process_and_load
+    - carrega o arquivo json local para um novo dataframe;
+    - trata a coluna _id do json carregado, transformando para string;
+    - carrega o json contendo as regiões a partir de uma chamada na api do IBGE;
+    - normaliza os dados carregados no dataframe das regiões;
+    - efetua o merge dos dataframes pnadc e regiões;
+    - envia para o banco postgres;
+- @end
+    - marca de final de processamento, sem atividade;
 
 ### Solução funcional
 
 ### Referências
-Vídeo Aulas - IGTI - BootCamp Engenheiro de dados, módulo 4, Pipelines de dados (Prof. Dr. Neylson Crepalde)
-https://pythontic.com/pandas/serialization/postgresql  
-https://medium.com/@apoor/quickly-load-csvs-into-postgresql-using-python-and-pandas-9101c274a92f  
-https://towardsdatascience.com/loading-large-datasets-in-pandas-11bdddd36f7b  
-https://chartio.com/resources/tutorials/how-to-execute-raw-sql-in-sqlalchemy/
+- Vídeo Aulas - IGTI - BootCamp Engenheiro de dados, módulo 4, Pipelines de dados (Prof. Dr. Neylson Crepalde)
+- https://github.com/neylsoncrepalde/docker-airflow  
+- https://pythontic.com/pandas/serialization/postgresql  
+- https://medium.com/@apoor/quickly-load-csvs-into-postgresql-using-python-and-pandas-9101c274a92f  
+- https://chartio.com/resources/tutorials/how-to-execute-raw-sql-in-sqlalchemy/  
