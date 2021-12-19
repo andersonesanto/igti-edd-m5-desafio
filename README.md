@@ -77,8 +77,9 @@ O código escrito no notebook jupyter contava com a reutilização dos DataFrame
     - marca de final de processamento, sem atividade;
 
 ### TO-DO
+- Reorganizar os diretórios locais de staging;
 - Terraform para criação do bucket no AWS/S3;
-- Terraform para criação do banco de dados AWS/RDS/Postgres
+- Terraform para criação do banco de dados AWS/RDS/Postgres;
 
 ### Referências
 - Vídeo Aulas - IGTI - BootCamp Engenheiro de dados, módulo 4, Pipelines de dados (Prof. Dr. Neylson Crepalde)
