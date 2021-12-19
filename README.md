@@ -1,7 +1,8 @@
 # MBA em Engenharia de Dados
 ## Bootcamp - Engenheiro de dados
 ### Módulo 5 - Desafio Final
-### Professor Neylson Crepalde 
+### Professor: Neylson Crepalde (http://github.com/neysoncrepalde)
+#### Aluno: Anderson E Santo
 ***
 ## Desafio final do BootCamp
 ### Objetivos
@@ -75,7 +76,9 @@ O código escrito no notebook jupyter contava com a reutilização dos DataFrame
 - @end
     - marca de final de processamento, sem atividade;
 
-### Solução funcional
+### TO-DO
+- Terraform para criação do bucket no AWS/S3;
+- Terraform para criação do banco de dados AWS/RDS/Postgres
 
 ### Referências
 - Vídeo Aulas - IGTI - BootCamp Engenheiro de dados, módulo 4, Pipelines de dados (Prof. Dr. Neylson Crepalde)
