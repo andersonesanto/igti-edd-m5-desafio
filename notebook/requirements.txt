@@ -1,2 +1,7 @@
-mongocli
 dnspython
+pandas 
+pymongo
+certifi
+sqlalchemy
+boto3
+requests
